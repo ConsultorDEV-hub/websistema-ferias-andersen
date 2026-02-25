@@ -1,10 +1,18 @@
 from flask import Flask, render_template, request, jsonify
 import sqlite3
 import os
+import threading
+import time
 
 app = Flask(__name__)
+
+# AJUSTE DE CAMINHO: O banco agora vive em /app/data para persistência no Docker
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DB_PATH = os.path.join(BASE_DIR, "database.db")
+DB_PATH = os.path.join(BASE_DIR, "data", "database.db")
+
+# Garante que a pasta 'data' exista para não dar erro de escrita
+if not os.path.exists(os.path.join(BASE_DIR, "data")):
+    os.makedirs(os.path.join(BASE_DIR, "data"))
 
 def init_db():
     conn = sqlite3.connect(DB_PATH)
@@ -51,9 +59,7 @@ def registrar_ferias():
 def deletar_registro():
     data = request.json
     conn = get_db_connection()
-    # Devolve o saldo
     conn.execute('UPDATE colaboradores SET saldo = saldo + ? WHERE id = ?', (data.get('dias'), data.get('id_colab')))
-    # Remove o registro
     conn.execute('DELETE FROM ferias WHERE id = ?', (data.get('id_ferias'),))
     conn.commit()
     conn.close()
@@ -82,6 +88,14 @@ def deletar(id):
     conn.close()
     return jsonify({"status": "sucesso"})
 
+# SCRIPT ANTI-SONO: Mantém a atividade mínima para nuvens como a Oracle
+def manter_vivo():
+    while True:
+        _ = 1 + 1
+        time.sleep(300)
 
+threading.Thread(target=manter_vivo, daemon=True).start()
 
-if __name__ == '__main__': app.run(debug=True)
+# ALTERAÇÃO PARA DOCKER: host '0.0.0.0' permite acesso externo ao container
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
