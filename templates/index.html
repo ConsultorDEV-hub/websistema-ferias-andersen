@@ -13,46 +13,48 @@
 
     <div class="wrapper">
         <aside class="sidebar">
-            <div class="logo-container">
-                <img src="{{ url_for('static', filename='img/logo.png') }}" alt="ANDERSEN" class="sidebar-logo">
+            <div class="logo-fixed-mobile">
+                <div class="logo-container">
+                    <img src="{{ url_for('static', filename='img/logo.png') }}" alt="ANDERSEN" class="sidebar-logo">
+                </div>
+                <h1 class="main-system-title">Gestão de Férias</h1>
             </div>
-
-            <h1 class="main-system-title">Gestão de Férias</h1>
             
-            <div class="menu">
-                <h2 class="sidebar-title">PAINEL DE LANÇAMENTO</h2>
-                
-                <div class="input-group">
-                    <label for="employee-select">Funcionário</label>
-                    <select id="employee-select" onchange="calcularPreviaDias()"><option value="">Carregando...</option></select>
-                </div>
-                <div class="input-group">
-                    <label for="start-date">Início</label>
-                    <input type="date" id="start-date" class="date-input" onchange="calcularPreviaDias()">
-                </div>
-                <div class="input-group">
-                    <label for="end-date">Término</label>
-                    <input type="date" id="end-date" class="date-input" onchange="calcularPreviaDias()">
+            <div class="sidebar-scrollable-content">
+                <div class="menu">
+                    <h2 class="sidebar-title">PAINEL DE LANÇAMENTO</h2>
+                    
+                    <div class="input-group">
+                        <label for="employee-select">Funcionário</label>
+                        <select id="employee-select" onchange="calcularPreviaDias()"><option value="">Carregando...</option></select>
+                    </div>
+                    <div class="input-group">
+                        <label for="start-date">Início</label>
+                        <input type="date" id="start-date" class="date-input" onchange="calcularPreviaDias()">
+                    </div>
+                    <div class="input-group">
+                        <label for="end-date">Término</label>
+                        <input type="date" id="end-date" class="date-input" onchange="calcularPreviaDias()">
+                    </div>
+
+                    <div id="contador-container" class="contador-ferias" style="display: none;">
+                        <p>Dias selecionados: <strong id="dias-selecionados">0</strong></p>
+                        <p>Saldo restante: <strong id="saldo-restante">-</strong></p>
+                    </div>
+
+                    <button class="btn-primary" onclick="registrarFerias()">Registrar Férias</button>
                 </div>
 
-                <div id="contador-container" class="contador-ferias" style="display: none;">
-                    <p>Dias selecionados: <strong id="dias-selecionados">0</strong></p>
-                    <p>Saldo restante: <strong id="saldo-restante">-</strong></p>
-                </div>
-
-                <button class="btn-primary" onclick="registrarFerias()">Registrar Férias</button>
-            </div>
-
-            <div class="info-box" id="infoBox">
-                <div class="info-header" onclick="toggleInfo()">
-                    <span class="info-title">💡 Dicas de Uso</span>
-                    <span id="infoArrow">▾</span>
-                </div>
-                <div class="info-content" id="infoContent">
-                    <div class="step"><span class="step-number">1</span><p><strong>Calendário:</strong> Selecione o nome e as datas para registrar férias.</p></div>
-                    <div class="step"><span class="step-number">2</span><p><strong>Saldos:</strong> Consulte o direito total e o saldo restante da equipe.</p></div>
-                    <div class="step"><span class="step-number">3</span><p><strong>Histórico:</strong> Consulte lançamentos. Exclusão restrita a administradores.</p></div>
-                    <div class="step"><span class="step-number">4</span><p><strong>Cadastro:</strong> Adicione novos funcionários e seus dias de direito.</p></div>
+                <div class="info-box" id="infoBox">
+                    <div class="info-header" onclick="toggleInfo()">
+                        <span class="info-title">💡 Dicas de Uso</span>
+                        <span id="infoArrow">▾</span>
+                    </div>
+                    <div class="info-content" id="infoContent">
+                        <div class="step"><span class="step-number">1</span><p><strong>Calendário:</strong> Selecione o nome e as datas.</p></div>
+                        <div class="step"><span class="step-number">2</span><p><strong>Saldos:</strong> Consulte o direito da equipe.</p></div>
+                        <div class="step"><span class="step-number">3</span><p><strong>Histórico:</strong> Exclusão restrita a ADM.</p></div>
+                    </div>
                 </div>
             </div>
         </aside>
@@ -62,7 +64,7 @@
                 <button class="tab-link active" onclick="openTab(event, 'calendario')">📅 Calendário</button>
                 <button class="tab-link" onclick="openTab(event, 'saldos')">📊 Saldos</button>
                 <button class="tab-link" onclick="openTab(event, 'historico')">📜 Histórico</button>
-                <button class="tab-link" onclick="openTab(event, 'cadastro')">👤 Novo Funcionário</button>
+                <button class="tab-link" onclick="openTab(event, 'cadastro')">👤 Novo</button>
             </header>
             
             <section class="display-panel" id="main-panel">
