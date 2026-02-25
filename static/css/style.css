@@ -1,51 +1,69 @@
-/* ... (mantenha o CSS de desktop igual) ... */
+/* Mantenha todo o início do CSS igual ao anterior até chegar na parte de baixo */
 
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', 'Segoe UI', sans-serif; }
+body { height: 100vh; width: 100vw; overflow: hidden; background-color: #f4f7f9; }
+.wrapper { display: flex; width: 100%; height: 100%; }
+
+/* SIDEBAR DESKTOP */
+.sidebar { 
+    width: 300px; min-width: 300px; 
+    background: #1a1c23; color: white; padding: 15px 20px; 
+    display: flex; flex-direction: column; gap: 5px; 
+    box-shadow: 4px 0 15px rgba(0,0,0,0.1); z-index: 10;
+}
+.logo-container { text-align: center; margin-bottom: 0px; border-bottom: 1px solid #2d303d; padding-bottom: 10px; }
+.sidebar-logo { max-width: 160px; height: auto; }
+.main-system-title { font-size: 19px; font-weight: 700; color: #ffffff; text-align: center; margin-top: 15px; margin-bottom: 30px; letter-spacing: 0.5px; }
+.sidebar-title { font-size: 10px; letter-spacing: 1.2px; color: #ff4b4b; margin-bottom: 8px; font-weight: 800; text-transform: uppercase; }
+.menu { display: flex; flex-direction: column; gap: 12px; }
+.input-group label { font-size: 11px; color: #959da5; font-weight: 600; margin-bottom: 4px; display: block; }
+.sidebar input, .sidebar select { background-color: #2d303d; border: 1px solid #3d4150; border-radius: 8px; padding: 10px; color: white; outline: none; width: 100%; font-size: 13px; }
+.btn-primary { background: #ff4b4b; color: white; border: none; padding: 12px; border-radius: 8px; font-weight: bold; width: 100%; cursor: pointer; transition: 0.3s; margin-top: 10px;}
+
+/* ÁREA DE CONTEÚDO */
+.content-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+.tabs { background: white; padding: 0 40px; display: flex; gap: 30px; border-bottom: 1px solid #e1e4e8; overflow-x: auto; }
+.tab-link { background: none; border: none; padding: 20px 0; font-size: 14px; font-weight: 600; color: #6a737d; cursor: pointer; white-space: nowrap; }
+.display-panel { padding: 25px; flex: 1; overflow-y: auto; }
+
+/* AJUSTE MOBILE - O PULO DO GATO */
 @media (max-width: 768px) {
-    body { overflow-y: auto; height: auto; }
-    .wrapper { flex-direction: column; height: auto; display: block; }
+    body { overflow: auto; } /* Permite rolagem na página toda se necessário */
+    .wrapper { flex-direction: column; height: auto; overflow: visible; }
     
     .sidebar { 
-        width: 100%; min-width: 100%; height: auto; 
-        padding: 0; display: block; position: relative; 
+        width: 100%; padding: 0; gap: 0; box-shadow: none; 
     }
 
+    /* Trava a logo e o título no topo */
     .logo-fixed-mobile {
         position: sticky;
         top: 0;
         background: #1a1c23;
-        z-index: 1000;
-        padding: 15px;
-        border-bottom: 2px solid #ff4b4b;
+        z-index: 100;
+        padding: 10px;
+        border-bottom: 1px solid #2d303d;
     }
+    
+    .main-system-title { margin: 5px 0; font-size: 16px; }
+    .sidebar-logo { max-width: 120px; }
 
+    /* Deixa o formulário de lançamento rolável junto com o resto */
     .sidebar-scrollable-content {
         padding: 20px;
-        background: #1a1c23;
-    }
-
-    .main-system-title { margin: 10px 0; font-size: 18px; }
-    .sidebar-logo { max-width: 140px; }
-
-    .content-area { 
-        width: 100%; height: auto; display: block; overflow: visible;
     }
 
     .tabs { 
         position: sticky; 
-        top: 110px; /* Ajuste para colar abaixo do topo fixo */
-        z-index: 999;
-        background: white;
-        padding: 5px 10px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        top: 95px; /* Ajuste para ficar logo abaixo da logo fixa */
+        z-index: 99;
+        padding: 0 10px;
+        gap: 15px;
     }
-
-    .display-panel { 
-        padding: 15px; height: auto; overflow: visible; 
-    }
-
-    .card { padding: 15px; margin-bottom: 20px; }
     
-    /* Garante que o calendário não quebre no celular */
-    #calendar { font-size: 10px; }
-    .fc-toolbar-title { font-size: 14px !important; }
+    .tab-link { padding: 15px 5px; font-size: 12px; }
+    .display-panel { padding: 15px; overflow: visible; }
+    .card { padding: 15px; }
 }
+
+/* O resto do CSS (tabelas, toasts, etc) permanece igual */
