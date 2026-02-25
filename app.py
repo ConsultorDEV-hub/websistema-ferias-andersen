@@ -82,4 +82,6 @@ def deletar(id):
     conn.close()
     return jsonify({"status": "sucesso"})
 
+
+
 if __name__ == '__main__': app.run(debug=True)
