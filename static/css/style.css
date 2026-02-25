@@ -48,7 +48,7 @@ body { height: 100vh; width: 100vw; overflow: hidden; background-color: #f4f7f9;
 /* DICAS */
 .info-box { margin-top: auto; background: rgba(255, 255, 255, 0.05); border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); overflow: hidden; }
 .info-header { padding: 12px 15px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
-.info-content { padding: 0 15px; max-height: 0; opacity: 0; transition: all 0.4s ease; overflow: hidden; }
+.info-content { padding: 0 15px; max-height: 0; opacity: 0; transition: all 0.4s ease; overflow-y: auto; }
 .info-box.active .info-content { padding-bottom: 15px; max-height: 500px; opacity: 1; }
 .step { display: flex; gap: 10px; margin-bottom: 10px; }
 .step-number { background: #ff4b4b; color: white; min-width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; }
