@@ -86,13 +86,13 @@ function carregarHistorico() {
 
 function calcularPreviaDias() {
     const inicio = document.getElementById('start-date').value;
-    const fim = document.getElementById('end-date').value;
+    const end_input = document.getElementById('end-date').value;
     const select = document.getElementById('employee-select');
     const container = document.getElementById('contador-container');
 
-    if (inicio && fim && select.value) {
+    if (inicio && end_input && select.value) {
         const d1 = new Date(inicio);
-        const d2 = new Date(fim);
+        const d2 = new Date(end_input);
         const total = Math.ceil((d2 - d1) / (1000 * 60 * 60 * 24)) + 1;
         const colab = colaboradoresDados.find(c => c.id == select.value);
 
