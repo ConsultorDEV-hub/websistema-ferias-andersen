@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Andersen | Gestão de Férias</title>
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div id="toast-container"></div>
+
+    <div class="wrapper">
+        <aside class="sidebar">
+            <div class="logo-container">
+                <img src="{{ url_for('static', filename='img/logo.png') }}" alt="ANDERSEN" class="sidebar-logo">
+            </div>
+            
+            <div class="menu">
+                <h2 class="sidebar-title">PAINEL DE LANÇAMENTO</h2>
+                
+                <div class="input-group">
+                    <label for="employee-select">Funcionário</label>
+                    <select id="employee-select" onchange="calcularPreviaDias()"><option value="">Carregando...</option></select>
+                </div>
+                <div class="input-group">
+                    <label for="start-date">Início</label>
+                    <input type="date" id="start-date" class="date-input" onchange="calcularPreviaDias()">
+                </div>
+                <div class="input-group">
+                    <label for="end-date">Término</label>
+                    <input type="date" id="end-date" class="date-input" onchange="calcularPreviaDias()">
+                </div>
+
+                <div id="contador-container" class="contador-ferias" style="display: none;">
+                    <p>Dias selecionados: <strong id="dias-selecionados">0</strong></p>
+                    <p>Saldo restante: <strong id="saldo-restante">-</strong></p>
+                </div>
+
+                <button class="btn-primary" onclick="registrarFerias()">Registrar Férias</button>
+            </div>
+
+            <div class="info-box" id="infoBox">
+                <div class="info-header" onclick="toggleInfo()">
+                    <span class="info-title">💡 Dicas de Uso</span>
+                    <span id="infoArrow">▾</span>
+                </div>
+                <div class="info-content" id="infoContent">
+                    <div class="step"><span class="step-number">1</span><p>Se não achar o nome, use a aba <strong>"Cadastro"</strong>.</p></div>
+                    <div class="step"><span class="step-number">2</span><p>O 1º dia selecionado é seu <strong>último dia na empresa</strong>.</p></div>
+                    <div class="step"><span class="step-number">3</span><p>O último dia selecionado é o <strong>último que ficará em casa</strong>.</p></div>
+                    <div class="step"><span class="step-number">4</span><p>O saldo é validado e descontado em tempo real.</p></div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="content-area">
+            <header class="tabs">
+                <button class="tab-link active" onclick="openTab(event, 'calendario')">📅 Calendário</button>
+                <button class="tab-link" onclick="openTab(event, 'saldos')">📊 Saldos</button>
+                <button class="tab-link" onclick="openTab(event, 'historico')" onclick="carregarHistorico()">📜 Histórico</button>
+                <button class="tab-link" onclick="openTab(event, 'cadastro')">👤 Novo Funcionário</button>
+            </header>
+            
+            <section class="display-panel" id="main-panel">
+                <div id="calendario" class="tab-content active">
+                    <div class="card"><div id="calendar"></div></div>
+                </div>
+
+                <div id="saldos" class="tab-content">
+                    <div class="card">
+                        <div class="card-header-accent"></div>
+                        <h3>Resumo de Saldos</h3>
+                        <div class="table-container">
+                            <table class="andersen-table">
+                                <thead>
+                                    <tr><th>Colaborador</th><th>Direito</th><th>Saldo Atual</th><th>Ação</th></tr>
+                                </thead>
+                                <tbody id="tabela-saldos"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="historico" class="tab-content">
+                    <div class="card">
+                        <div class="card-header-accent"></div>
+                        <h3>Histórico de Lançamentos</h3>
+                        <div class="table-container">
+                            <table class="andersen-table">
+                                <thead>
+                                    <tr><th>Funcionário</th><th>Início</th><th>Término</th><th>Dias</th><th>Ação</th></tr>
+                                </thead>
+                                <tbody id="tabela-historico"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="cadastro" class="tab-content">
+                    <div class="card form-card">
+                        <div class="card-header-accent"></div>
+                        <h3 class="form-title">Novo Colaborador</h3>
+                        <div class="form-container">
+                            <div class="floating-group">
+                                <input type="text" id="new-name" class="floating-input" placeholder=" " required>
+                                <label class="floating-label">Nome Completo</label>
+                            </div>
+                            <div class="floating-group">
+                                <input type="number" id="new-days" class="floating-input" placeholder=" " value="30" required>
+                                <label class="floating-label">Dias de Direito</label>
+                            </div>
+                            <button class="btn-save" onclick="salvarColaborador()">Salvar no Banco</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

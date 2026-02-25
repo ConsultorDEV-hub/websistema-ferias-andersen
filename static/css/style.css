@@ -1,0 +1,88 @@
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', 'Segoe UI', sans-serif; }
+body { height: 100vh; width: 100vw; overflow: hidden; background-color: #f4f7f9; }
+.wrapper { display: flex; width: 100%; height: 100%; }
+
+/* SIDEBAR */
+.sidebar { 
+    width: 300px; min-width: 300px; 
+    background: #1a1c23; color: white; padding: 25px 20px; 
+    display: flex; flex-direction: column; gap: 20px; 
+    box-shadow: 4px 0 15px rgba(0,0,0,0.1); z-index: 10;
+}
+.logo-container { text-align: center; margin-bottom: 5px; border-bottom: 1px solid #2d303d; padding-bottom: 15px; }
+.sidebar-logo { max-width: 180px; height: auto; }
+
+.sidebar-title {
+    font-size: 11px; letter-spacing: 1.5px; color: #ff4b4b;
+    margin-top: 10px; margin-bottom: 5px; font-weight: 800; text-transform: uppercase;
+}
+
+.menu { display: flex; flex-direction: column; gap: 15px; }
+.input-group label { font-size: 12px; color: #959da5; font-weight: 600; margin-bottom: 5px; display: block; }
+
+.sidebar input, .sidebar select { 
+    background-color: #2d303d; border: 1px solid #3d4150; border-radius: 8px; 
+    padding: 10px; color: white; outline: none; width: 100%; 
+}
+
+.date-input::-webkit-calendar-picker-indicator { filter: invert(1); cursor: pointer; }
+
+/* CONTADOR DE DIAS */
+.contador-ferias {
+    background: rgba(255, 255, 255, 0.05); border: 1px dashed #3d4150;
+    border-radius: 8px; padding: 12px; font-size: 13px; color: #959da5; line-height: 1.6;
+}
+.contador-ferias strong { color: white; }
+
+.btn-primary { 
+    background: #ff4b4b; color: white; border: none; padding: 14px; border-radius: 8px; 
+    font-weight: bold; width: 100%; cursor: pointer; transition: 0.3s;
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(255, 75, 75, 0.3); }
+
+/* DICAS */
+.info-box { margin-top: auto; background: rgba(255, 255, 255, 0.05); border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); overflow: hidden; }
+.info-header { padding: 12px 15px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+.info-content { padding: 0 15px; max-height: 0; opacity: 0; transition: all 0.4s ease; overflow: hidden; }
+.info-box.active .info-content { padding-bottom: 15px; max-height: 500px; opacity: 1; }
+.step { display: flex; gap: 10px; margin-bottom: 10px; }
+.step-number { background: #ff4b4b; color: white; min-width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: bold; }
+.step p { font-size: 11px; color: #ccc; line-height: 1.4; }
+
+/* MAIN CONTENT */
+.content-area { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
+.tabs { background: white; padding: 0 40px; display: flex; gap: 30px; border-bottom: 1px solid #e1e4e8; }
+.tab-link { background: none; border: none; padding: 20px 0; font-size: 14px; font-weight: 600; color: #6a737d; cursor: pointer; position: relative; }
+.tab-link.active { color: #ff4b4b; }
+.tab-link.active::after { content: ''; position: absolute; bottom: 0; left: 0; width: 100%; height: 3px; background: #ff4b4b; }
+
+.display-panel { padding: 25px; flex: 1; overflow-y: auto; transition: 0.3s; width: 100%; }
+.display-panel.centered-mode { display: flex !important; justify-content: center !important; align-items: center !important; }
+
+.tab-content { display: none; width: 100%; }
+.tab-content.active { display: block; animation: fadeIn 0.4s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* CARDS E TABELAS */
+.card { background: white; padding: 30px; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.03); position: relative; width: 100%; }
+.form-card { max-width: 500px; }
+.card-header-accent { position: absolute; top: 0; left: 0; width: 100%; height: 4px; background: #ff4b4b; border-radius: 16px 16px 0 0; }
+
+.andersen-table { width: 100%; border-collapse: separate; border-spacing: 0 8px; }
+.andersen-table th { text-align: left; padding: 12px; color: #6a737d; font-size: 13px; }
+.andersen-table td { padding: 16px 12px; background: #f8f9fa; font-size: 14px; }
+
+/* FORMULÁRIO FLUTUANTE */
+.floating-group { position: relative; margin-bottom: 25px; }
+.floating-input { width: 100%; padding: 16px; border: 1.5px solid #e1e4e8; border-radius: 12px; font-size: 16px; outline: none; }
+.floating-input:focus { border-color: #ff4b4b; }
+.floating-label { position: absolute; left: 16px; top: 18px; color: #959da5; transition: 0.2s; pointer-events: none; }
+.floating-input:focus ~ .floating-label, .floating-input:not(:placeholder-shown) ~ .floating-label { top: -10px; left: 12px; font-size: 12px; color: #ff4b4b; background: white; padding: 0 5px; font-weight: 700; }
+
+.btn-save { background: #1a1c23; color: white; border: none; padding: 16px; border-radius: 12px; font-weight: bold; width: 100%; cursor: pointer; transition: 0.3s; }
+.btn-save:hover { background: #000; transform: translateY(-2px); }
+
+/* TOASTS */
+#toast-container { position: fixed; top: 20px; right: 20px; z-index: 9999; }
+.toast { background: #1a1c23; color: white; padding: 15px 25px; border-radius: 10px; margin-bottom: 10px; border-left: 4px solid #ff4b4b; animation: slideIn 0.3s ease; }
+@keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
