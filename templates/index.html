@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Andersen | Gestão de Férias</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
@@ -58,7 +59,7 @@
             <header class="tabs">
                 <button class="tab-link active" onclick="openTab(event, 'calendario')">📅 Calendário</button>
                 <button class="tab-link" onclick="openTab(event, 'saldos')">📊 Saldos</button>
-                <button class="tab-link" onclick="openTab(event, 'historico')" onclick="carregarHistorico()">📜 Histórico</button>
+                <button class="tab-link" onclick="openTab(event, 'historico')">📜 Histórico</button>
                 <button class="tab-link" onclick="openTab(event, 'cadastro')">👤 Novo Funcionário</button>
             </header>
             
